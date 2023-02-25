@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'first/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/png">
+
+  <title>Route Optimizer | RO</title>
+</head>
+
+<body>
+  {% load static %}
+  <div class="nav">
+    <div class="img">
+      <img src="{% static 'images/logo.png' %}" alt="">
+    </div>
+    <input type="checkbox" id="nav-check">
+
+    <div class="nav-btn">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    <div class="nav-links">
+      <a href="#">HOME</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </div>
+
+  </div>
+  <div class="container">
+    <div class="m-left">
+      <!-- <img src="./route2.jpg" alt=""> -->
+    </div>
+    <div class="m-right">
+      <div class="right1">
+        Vehicle Routing Problem
+      </div>
+      <div class="right2">
+        <form action="/excelinput" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form1">
+            <input type="text" id="input1" name="capacity" required>
+            <label for="input1">Vehicle Capacity</label>
+          </div>
+          <div class="form1">
+            <input type="text" id="input1" name="lat" required>
+            <label for="input1">Starting Point Latitude</label>
+          </div>
+          <div class="form1">
+            <input type="text" id="input1" name="long" required>
+            <label for="input1">Starting Point Longitude</label>
+          </div>
+          <div class="select">
+            <select name="format" id="format" required>
+              <option selected disabled>Choose a option</option>
+              <option value="1">With Clarke Wright</option>
+              <option value="2">With Our Algorithm</option>
+            </select>
+          </div>
+          <div class="form2">
+            <input id="fileSelect" type="file" name="document" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>  
+          </div>
+          <button type="submit" class="button-two"><span>Submit</span></button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="circles">
+    <div class="photo-txt">
+      <div class="short-heading">
+        Labels in Excel Sheet
+      </div>
+      <div class="short-photo">
+          <img src="{% static 'images/Excelformat.jpg' %}" alt="" height="100%" width="100%" style="border-radius: 50%;">
+      </div>
+      <div class="short-desc">
+        User should upload the excel sheet as per the label format shown in above image.
+        Note: Remember the spelling must be correct and in load column "l" is small.
+      </div>
+    </div>
+    <div class="photo-txt">
+      <div class="short-heading">
+        Output Route Image
+      </div>
+      <div class="short-photo">
+        <img src="{% static 'images/output.jpg' %}" alt="" height="100%" width="100%" style="border-radius: 50%;">
+      </div>
+      <div class="short-desc">
+        Output image of an individual route will be as shown in the image above.
+      </div>
+    </div>
+    <div class="photo-txt">
+      <div class="short-heading">
+        Geographical distance/ API 
+      </div>
+      <div class="short-photo">
+        <img src="{% static 'images/Option.jpeg' %}" alt="" height="100%" width="100%" style="border-radius: 50%;">
+      </div>
+      <div class="short-desc">
+        The route generated using Geographical distance will be faster as compared to API. As the Geographical distance does not need any API request. Rather API request route will be time taking but in a sense more optimized as it is based on real route distance.
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <footer id="contact">
+    <div class="footer">
+      <div class="row">
+        <a href="#"><img src="{% static 'images/fb.png' %}" alt="" width="30px" height="30px"></a>
+        <a href="#"><img src="{% static 'images/twitter.jpg' %}" alt="" width="30px" height="30px"></a>
+        <a href="#"><img src="{% static 'images/yt.png' %}" alt="" width="30px" height="30px"></a>
+        <a href="#"><img src="{% static 'images/insta.png' %}" alt="" width="30px" height="30px"></a>
+      </div>
+
+      <div class="row">
+        <ul>
+          <li><a href="#">Contact us</a></li>
+          <li><a href="#">Branches</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Support Us</a></li>
+        </ul>
+      </div>
+
+      <div class="row">
+        LOPO Copyright © 2021 LOPO - All rights reserved
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
+    <title>Final Routes</title>
+    <style>
+        body {
+            background-color: rgb(24, 24, 24);
+            z-index: -1;
+            margin: 0px;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table caption {
+            margin: 0.5em 0 0.75em;
+            color: wheat;
+            font-size: 3rem;
+        }
+
+        table tr {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: .35em;
+        }
+
+        table th,
+        table td {
+            padding: .625em;
+            text-align: center;
+        }
+
+        table th {
+            font-size: 1em;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                border: 0;
+            }
+
+            table caption {
+                font-size: 1.3em;
+            }
+
+            table thead {
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            table tr {
+                border-bottom: 3px solid #ddd;
+                display: block;
+                margin-bottom: .625em;
+            }
+
+            table td {
+                border-bottom: 1px solid #ddd;
+                display: block;
+                font-size: .8em;
+                text-align: right;
+            }
+
+            table td::before {
+                /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            table td:last-child {
+                border-bottom: 0;
+            }
+        }
+
+        button a {
+            text-decoration: none;
+            color: black;
+        }
+
+        button {
+            background-color: lightgreen;
+    font-size: 1.3em;
+        }
+        button:hover{
+            cursor: pointer;
+            font-size: 1.5em;
+            background: wheat;
+            color: black;
+        }
+        .note {
+            text-align: center;
+            background: rgb(223, 100, 100);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="note">
+        <h2>This co-ordinates has load greater than vehicle capacity:</h2>
+        {% for i in msg %}
+        <h2>{{i}}</h2>
+        {% endfor %}
+    </div>
+    <table>
+        <caption>Routes and their Distances</caption>
+        <thead>
+            <tr>
+                <th scope="col">Route</th>
+                <th scope="col">Route image</th>
+                <th scope="col">Route Distance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in all %}
+            <tr>
+                <td data-label="Route">{{i.0}}</td>
+                <td data-label="Route image"><button><a target="blank" href={{i.1}}>Route Image</a></button></td>
+                <td data-label="Route Distance">{{i.2}} km</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="note">
+    <h2>
+        The total distance of all the routes is : {{totaldistance}} km.
+    </h2>
+    <h3>
+        Note: If you have selected Geographical distance then the total distance is Geographical distance and not the actual route distance. But if API method is selected then it is actual route distance. 
+    </h3>
+</div>
+</body>
+
+</html>
