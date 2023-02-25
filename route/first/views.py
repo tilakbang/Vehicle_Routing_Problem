@@ -477,39 +477,43 @@ def route_dist_2(l):
         dist=dist+geodesic(l[i],l[i+1]).km
     return dist
 
-def route_dist(l,uploaded_file,start_lat,start_lon):
-    dist=0
-    df = pd.read_excel(uploaded_file, "Sheet1")
-    indexinginfile={}
-    n = df.shape[0]
-    indexinginfile[0]=(start_lat,start_lon)
-
-    for i in range(n):
-        indexinginfile[i+1]=(df["Latitude"][i],df["Longitude"][i])
-    print(indexinginfile)
-    for i in range(len(l)):
-        l[i]=indexinginfile[i]
-    print(l)
-    for i in range(len(l)-1):
-        dist=dist+geodesic(l[i],l[i+1]).km
-    return dist
 
 
 def main_1(capacity, lat, long, uploaded_file):
     routes=Clarke_Wright(capacity, lat, long, uploaded_file)
     print(routes)
+    df = pd.read_excel(uploaded_file, "Sheet1")
+    indexinginfile={}
+    n = df.shape[0]
+    indexinginfile[0]=(lat,long)
+    for i in range(n):
+        indexinginfile[i+1]=(df["Latitude"][i],df["Longitude"][i])
+    print("Indexing in file",indexinginfile)
+    
     urllist=[]
     ind_route_distance=[]
-    total=[]
+    total=0
+    froutes=[]
     for route in routes:
-        print(route)
-        ind_route_distance=route_dist(route,uploaded_file,lat,long)
+        froute=""
 
-            
-    params['all']=[(routes[i],urllist[i],ind_route_distance[i]) for i in range(len(urllist))]
+        for i in range(len(route)):
+            froute+=str(route[i])+" ==> "
+            route[i]=indexinginfile[route[i]]
+        froutes.append(froute)
+        url=printurl(route)
+        urllist.append(url)
+        print("route",route)
+        ind_route_distance.append(route_dist_2(route))
+        total+=route_dist_2(route)
+    print("final")
+    print(urllist)
+    print(froutes)
+    print(ind_route_distance)
+    params['all']=[(froutes[i],urllist[i],ind_route_distance[i]) for i in range(len(urllist))]
     params['totaldistance']=str(total)
     print('Total route distance is :'+str(total))
-    return HttpResponse("Hello")
+    # return HttpResponse("Hello")
 
 def main_2(capacity, lat, long, uploaded_file):
     starting_point=(lat, long)
@@ -544,6 +548,8 @@ def main_2(capacity, lat, long, uploaded_file):
             ind_route_distance.append(route_dist_2(route))
         else:
             print(i)
+
+    print(routes)
     params['all']=[(routes[i],urllist[i],ind_route_distance[i]) for i in range(len(urllist))]
     params['totaldistance']=str(total)
     print('Total route distance is :'+str(total))
